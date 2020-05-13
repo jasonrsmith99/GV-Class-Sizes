@@ -1,0 +1,49 @@
+---
+title: "Class Size"
+author: "Jason Smith"
+date: "5/13/2020"
+output: github_document
+---
+
+```{r, message = FALSE}
+library(readxl)
+library(tidyverse)
+class_sizes <- read_excel("data/class_sizes.xlsx")
+```
+
+```{r}
+in_person <- filter(class_sizes, in_person == 1)
+```
+
+```{r}
+in_person %>% 
+  group_by(year) %>% 
+  summarise(
+    n = n(),
+    sd = sd(size),
+    min = min(size),
+    median = median(size),
+    max = max(size)
+  )
+```
+
+```{r}
+in_person %>% 
+  ggplot(aes(x = factor(0), y = size))+
+  geom_boxplot()+
+  facet_wrap("year")+
+  theme(axis.text.x = element_blank())+
+  theme(axis.ticks.x = element_blank())
+```
+
+```{r}
+in_person %>% 
+  group_by(department) %>% 
+  summarise(
+    n = n(),
+    sd = sd(size),
+    min = min(size),
+    median = median(size),
+    max = max(size)
+  )
+```
