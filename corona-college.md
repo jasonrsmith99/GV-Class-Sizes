@@ -36,6 +36,7 @@ in_person %>%
 in_person %>% 
   ggplot(aes(x = factor(0), y = size))+
   geom_boxplot()+
+  geom_hline(yintercept = 26, color = "red")+
   facet_wrap("year")+
   theme(axis.text.x = element_blank())+
   theme(axis.ticks.x = element_blank())
@@ -65,3 +66,12 @@ in_person %>%
     ## 5 Mathematics            3  3.06     23   27      29
     ## 6 Statistics             2  0.707    29   29.5    30
     ## 7 University Studies     1 NA        26   26      26
+
+``` r
+in_person %>% 
+  ggplot(aes(x = department, y = size))+
+  geom_boxplot()+
+  geom_hline(yintercept = 26, color = "red")
+```
+
+![](corona-college_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
