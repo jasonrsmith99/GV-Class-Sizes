@@ -7,6 +7,7 @@ Jason Smith
 library(readxl)
 library(tidyverse)
 class_sizes <- read_excel("data/class_sizes.xlsx")
+h <- 26
 ```
 
 ``` r
@@ -39,7 +40,12 @@ in_person %>%
   geom_hline(yintercept = 26, color = "red")+
   facet_wrap("year")+
   theme(axis.text.x = element_blank())+
-  theme(axis.ticks.x = element_blank())
+  theme(axis.ticks.x = element_blank())+
+  labs(
+    title = "Class Size by Year",
+    x = "",
+    y = "Class Size",
+    caption = "Red line is Grand Valley's average class size of 26")
 ```
 
 ![](corona-college_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
@@ -71,7 +77,12 @@ in_person %>%
 in_person %>% 
   ggplot(aes(x = department, y = size))+
   geom_boxplot()+
-  geom_hline(yintercept = 26, color = "red")
+  geom_hline(yintercept = 26, color = "red")+
+  labs(
+    title = "Class Size by Department",
+    x = "Department",
+    y = "Class Size",
+    caption = "Red line is Grand Valley's average class size of 26")
 ```
 
 ![](corona-college_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
