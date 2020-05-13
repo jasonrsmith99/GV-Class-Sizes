@@ -9,7 +9,6 @@ output: github_document
 library(readxl)
 library(tidyverse)
 class_sizes <- read_excel("data/class_sizes.xlsx")
-h <- 26
 ```
 
 ```{r}
@@ -38,7 +37,33 @@ in_person %>%
   theme(axis.ticks.x = element_blank())+
   labs(
     title = "Class Size by Year",
+    subtitle = "Face to Face Classes",
     x = "",
+    y = "Class Size",
+    caption = "Red line is Grand Valley's average class size of 26")
+```
+
+```{r}
+in_person %>% 
+  group_by(semester) %>% 
+  summarise(
+    n = n(),
+    sd = sd(size),
+    min = min(size),
+    median = median(size),
+    max = max(size)
+  )
+```
+
+```{r}
+in_person %>% 
+  ggplot(aes(x = semester, y = size))+
+  geom_boxplot()+
+  geom_hline(yintercept = 26, color = "red")+
+  labs(
+    title = "Class Size by Semester",
+    subtitle = "Face to Face Classes",
+    x = "Semester",
     y = "Class Size",
     caption = "Red line is Grand Valley's average class size of 26")
 ```
@@ -62,6 +87,7 @@ in_person %>%
   geom_hline(yintercept = 26, color = "red")+
   labs(
     title = "Class Size by Department",
+    subtitle = "Face to Face Classes",
     x = "Department",
     y = "Class Size",
     caption = "Red line is Grand Valley's average class size of 26")
