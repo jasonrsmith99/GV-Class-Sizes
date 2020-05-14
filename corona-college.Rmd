@@ -30,7 +30,7 @@ in_person %>%
 ```{r}
 in_person %>% 
   ggplot(aes(x = factor(0), y = size))+
-  geom_boxplot()+
+   geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
   facet_wrap("year")+
   theme(axis.text.x = element_blank())+
