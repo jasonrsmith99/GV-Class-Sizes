@@ -5,29 +5,50 @@ date: "5/13/2020"
 output: github_document
 ---
 
+# Introduction
+This summer, schools across the country are having to make the difficult decision of whether to
+reopen for in the fall or to remain in an online format. Grand Valley has noted over the past few weeks that the university
+is in a ["unique position"](https://www.gvsu.edu/gvnext/2020/gvsu-plans-for-face-to-face-learning-this-11525.htm) due to newer facilities and an average class size of 26.
+
+I am curious how my classes have held up to that magic number. Fortunately, you can access the number of students in
+past courses (among other things) in Banner. This is the story of that afternoon project.
+
+
+# The Data
 ```{r, message = FALSE}
 library(readxl)
 library(tidyverse)
-class_sizes <- read_excel("data/class_sizes.xlsx")
-```
-
-```{r}
+library(kableExtra)
+(class_sizes <- read_excel("C:/Users/Jason/Desktop/STA 418/Other/class_sizes.xlsx"))
 in_person <- filter(class_sizes, in_person == 1)
 ```
 
-```{r}
+I made this dataset by copying the information I found on Banner for my past registrations into Excel. There were a few considerations I had to make while creating it. The first, this winter, I took an (intentionally) online class. I didn't think it would be fair to include it in my analysis because there are fewer consquences for having a large online class (except for more grading). To easily subset it from the rest, I created the 'in_person' variable.\
+Second, I wanted to do two analyses regarding dates:
+
+- class size by year
+- class size by semester
+
+The problem I ran into is that I don't know how to get R to understand that I want to analysize class sizes by year and also tack on the semester for a more narrow look. I ended up putting the year at the end of the 'semester' variable.
+
+# Class Size by Year
+```{r by-year}
 in_person %>% 
   group_by(year) %>% 
   summarise(
     n = n(),
-    sd = sd(size),
-    min = min(size),
-    median = median(size),
-    max = max(size)
-  )
+    `Standard Deviation` = sd(size),
+    Minimum = min(size),
+    Median = median(size),
+    Maximum = max(size)) %>%
+  rename(Year = year) %>% 
+  kable(caption = "Table 1: Class size by year summary statistics")
 ```
 
-```{r}
+Based on this summary, the median class size I've had has increased and the standard deviation has decreased. You could claim that smaller class sizes are only for first year students but that would be incorrect. In fact, the largest classes I've taken occured during my first year. There are also some considerations deeper analysis will reveal.\
+It is also worth noting that this data is seperated by acutal years, not acadmeic year which may misrepresent my experience.
+
+```{r by-year-graph}
 in_person %>% 
   ggplot(aes(x = factor(0), y = size))+
    geom_boxplot()+
@@ -43,19 +64,24 @@ in_person %>%
     caption = "Red line is Grand Valley's average class size of 26")
 ```
 
-```{r}
+Here's a boxplot showing much of the same thing.
+
+# Class Size by Semester
+```{r by-semester}
 in_person %>% 
   group_by(semester) %>% 
   summarise(
     n = n(),
-    sd = sd(size),
-    min = min(size),
-    median = median(size),
-    max = max(size)
-  )
+    `Standard Deviation` = sd(size),
+    Minimum = min(size),
+    Median = median(size),
+    Max = max(size)) %>%
+  kable(caption = "Table 2: Class size by semester")
 ```
 
-```{r}
+Let's do this analysis again looking at each semester. We can see a bit more clearly that the large standard deviations are a result of me taking courses with exceptional large class sizes during my first year (fall 2018 and winter 2019). However, the increasing median size remains unexplained.
+
+```{r by semester-graph}
 in_person %>% 
   ggplot(aes(x = semester, y = size))+
   geom_boxplot()+
@@ -68,19 +94,27 @@ in_person %>%
     caption = "Red line is Grand Valley's average class size of 26")
 ```
 
-```{r}
+Another day, another boxplot. Keep in mind that the semesters are not in chronological order.
+
+# Class Size by Department
+```{r by-department}
 in_person %>% 
   group_by(department) %>% 
   summarise(
     n = n(),
-    sd = sd(size),
-    min = min(size),
-    median = median(size),
-    max = max(size)
-  )
+    `Standard Deviation`= sd(size),
+    Minimum = min(size),
+    Median = median(size),
+    Maximum = max(size)) %>%
+  kable(caption = "Table 3: Class size by Department")
 ```
 
-```{r}
+This is where I think we get some real insight. For reference, I am majoring in economics and statistics and at this point, I've almost completed the economics coursework. It isn't necesarily that class sizes get larger as students progress. The economics department happens to have larger classes (most of them are 40 students). The fact that I'm taking more of these courses in my second (academcic) year is probably what's increasing the median class size.\
+There are two department I want to note specifically. The only course I took was BIO 120 (general biology), but the course is broken up into 3 distinct parts: lecture (96 students), lab (23 students), and discussion (32 students). This course is a required for many majors and can fufill gen-ed requirements. The classes has to have more slots to accomodate demand.\
+In the Business department, I only took BUS 201 (Business Law). this is a required course for all students persuing a BBA. Many sections of this course are actually around 30 students. But to accomodate demand, two 100 student lectures are offered.
+
+
+```{r by-department-graph}
 in_person %>% 
   ggplot(aes(x = department, y = size))+
   geom_boxplot()+
@@ -93,3 +127,18 @@ in_person %>%
     caption = "Red line is Grand Valley's average class size of 26")
 ```
 
+The boxplot shows that in my experience, departments have been fairly consistent when it comes to class sizes (It's important to note that I've only taken on classes with the Business, University Studies, and Biology department, this may be an arguement to remove those).
+
+
+# Discussion
+
+So what can we take away from this?
+
+- Grand Valley has fairly small class sizes (although I haven't compared them with other schools)
+
+- Departments are very consistant class sizes across their courses
+  + We see some exceptions in Biology and Business where the courses I've taken (BIO 120 and BUS 201) are required intro classes for many majors thus requiring much larger class sizes to accomodate demand.
+
+- I have taken few courses with 26 or fewer students
+
+We all know that fall 2020 is going to look very different for universities, Grand Valley is no exception. Although already small classes are to the school's advantage, many departments, especially those with courses many first year students must take, are going to have to make radical changes to provide for social distancing.
