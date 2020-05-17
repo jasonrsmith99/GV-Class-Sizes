@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 *.pdf
+Corona-college-writeup.Rmd
+Corona-college-writeup.html
