@@ -23,35 +23,35 @@ project.
 library(readxl)
 library(tidyverse)
 library(kableExtra)
-(class_sizes <- read_excel("C:/Users/Jason/Desktop/STA 418/Other/class_sizes.xlsx"))
+(class_sizes <- read_excel("data/class_sizes.xlsx"))
 ```
 
     ## # A tibble: 20 x 6
-    ##    semester   year class       department          size in_person
+    ##    Semester   Year Class       Department          Size In_person
     ##    <chr>     <dbl> <chr>       <chr>              <dbl>     <dbl>
-    ##  1 fall_18    2018 HNR 280     Honors College        25         1
-    ##  2 fall_18    2018 US 102      University Studies    26         1
-    ##  3 fall_18    2018 BIO 120-20  Biology               96         1
-    ##  4 fall_18    2018 BIO 120-912 Biology               23         1
-    ##  5 fall_18    2018 BIO 120-23  Biology               32         1
-    ##  6 fall_18    2018 ECO 210     Economics             38         1
-    ##  7 winter_19  2019 HNR 280     Honors College        25         1
-    ##  8 winter_19  2019 MTH 122     Mathematics           23         1
-    ##  9 winter_19  2019 ECO 211     Economics             39         1
-    ## 10 winter_19  2019 BUS 201     Business             100         1
-    ## 11 fall_19    2019 ECO 312     Economics             39         1
-    ## 12 fall_19    2019 STA 216     Statistics            30         1
-    ## 13 fall_19    2019 ECO 300     Economics             30         1
-    ## 14 fall_19    2019 ECO 360     Economics             39         1
-    ## 15 fall_19    2019 MTH 123     Mathematics           27         1
-    ## 16 winter_20  2020 STA 321     Statistics            29         1
-    ## 17 winter_20  2020 MTH 201     Mathematics           29         1
-    ## 18 winter_20  2020 ECO 345     Economics             40         1
-    ## 19 winter_20  2020 HNR 280     Honors College        21         0
-    ## 20 winter_20  2020 ECO 355     Economics             40         1
+    ##  1 Fall_18    2018 HNR 280     Honors College        25         1
+    ##  2 Fall_18    2018 US 102      University Studies    26         1
+    ##  3 Fall_18    2018 BIO 120-20  Biology               96         1
+    ##  4 Fall_18    2018 BIO 120-912 Biology               23         1
+    ##  5 Fall_18    2018 BIO 120-23  Biology               32         1
+    ##  6 Fall_18    2018 ECO 210     Economics             38         1
+    ##  7 Winter_19  2019 HNR 280     Honors College        25         1
+    ##  8 Winter_19  2019 MTH 122     Mathematics           23         1
+    ##  9 Winter_19  2019 ECO 211     Economics             39         1
+    ## 10 Winter_19  2019 BUS 201     Business             100         1
+    ## 11 Fall_19    2019 ECO 312     Economics             39         1
+    ## 12 Fall_19    2019 STA 216     Statistics            30         1
+    ## 13 Fall_19    2019 ECO 300     Economics             30         1
+    ## 14 Fall_19    2019 ECO 360     Economics             39         1
+    ## 15 Fall_19    2019 MTH 123     Mathematics           27         1
+    ## 16 Winter_20  2020 STA 321     Statistics            29         1
+    ## 17 Winter_20  2020 MTH 201     Mathematics           29         1
+    ## 18 Winter_20  2020 ECO 345     Economics             40         1
+    ## 19 Winter_20  2020 HNR 280     Honors College        21         0
+    ## 20 Winter_20  2020 ECO 355     Economics             40         1
 
 ``` r
-in_person <- filter(class_sizes, in_person == 1)
+in_person <- filter(class_sizes, In_person == 1)
 ```
 
 I made this dataset by copying the information I found on Banner for my
@@ -75,14 +75,13 @@ of the ‘semester’ variable.
 
 ``` r
 in_person %>% 
-  group_by(year) %>% 
+  group_by(Year) %>% 
   summarise(
     n = n(),
-    `Standard Deviation` = sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Maximum = max(size)) %>%
-  rename(Year = year) %>% 
+    `Standard Deviation` = sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Maximum = max(Size)) %>%
   kable(caption = "Table 1: Class size by year summary statistics",
         digit = 2)
 ```
@@ -275,10 +274,10 @@ acadmeic year which may misrepresent my experience.
 
 ``` r
 in_person %>% 
-  ggplot(aes(x = factor(0), y = size))+
+  ggplot(aes(x = factor(0), y = Size))+
    geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
-  facet_wrap("year")+
+  facet_wrap("Year")+
   theme(axis.text.x = element_blank())+
   theme(axis.ticks.x = element_blank())+
   labs(
@@ -297,13 +296,13 @@ Here’s a boxplot showing much of the same thing.
 
 ``` r
 in_person %>% 
-  group_by(semester) %>% 
+  group_by(Semester) %>% 
   summarise(
     n = n(),
-    `Standard Deviation` = sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Max = max(size)) %>%
+    `Standard Deviation` = sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Max = max(Size)) %>%
   kable(caption = "Table 2: Class size by semester",
         digit =2)
 ```
@@ -322,7 +321,7 @@ Table 2: Class size by semester
 
 <th style="text-align:left;">
 
-semester
+Semester
 
 </th>
 
@@ -366,7 +365,7 @@ Max
 
 <td style="text-align:left;">
 
-fall\_18
+Fall\_18
 
 </td>
 
@@ -406,7 +405,7 @@ fall\_18
 
 <td style="text-align:left;">
 
-fall\_19
+Fall\_19
 
 </td>
 
@@ -446,7 +445,7 @@ fall\_19
 
 <td style="text-align:left;">
 
-winter\_19
+Winter\_19
 
 </td>
 
@@ -486,7 +485,7 @@ winter\_19
 
 <td style="text-align:left;">
 
-winter\_20
+Winter\_20
 
 </td>
 
@@ -534,7 +533,7 @@ unexplained.
 
 ``` r
 in_person %>% 
-  ggplot(aes(x = semester, y = size))+
+  ggplot(aes(x = Semester, y = Size))+
   geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
   labs(
@@ -554,13 +553,13 @@ chronological order.
 
 ``` r
 in_person %>% 
-  group_by(department) %>% 
+  group_by(Department) %>% 
   summarise(
     n = n(),
-    `Standard Deviation`= sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Maximum = max(size)) %>%
+    `Standard Deviation`= sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Maximum = max(Size)) %>%
   kable(caption = "Table 3: Class size by Department",
         digit = 2)
 ```
@@ -579,7 +578,7 @@ Table 3: Class size by Department
 
 <th style="text-align:left;">
 
-department
+Department
 
 </th>
 
@@ -923,7 +922,7 @@ course are actually around 30 students. But to accomodate demand, two
 
 ``` r
 in_person %>% 
-  ggplot(aes(x = department, y = size))+
+  ggplot(aes(x = Department, y = Size))+
   geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
   labs(

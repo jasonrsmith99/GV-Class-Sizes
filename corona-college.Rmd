@@ -19,8 +19,8 @@ past courses (among other things) in Banner. This is the story of that afternoon
 library(readxl)
 library(tidyverse)
 library(kableExtra)
-(class_sizes <- read_excel("C:/Users/Jason/Desktop/STA 418/Other/class_sizes.xlsx"))
-in_person <- filter(class_sizes, in_person == 1)
+(class_sizes <- read_excel("data/class_sizes.xlsx"))
+in_person <- filter(class_sizes, In_person == 1)
 ```
 
 I made this dataset by copying the information I found on Banner for my past registrations into Excel. There were a few considerations I had to make while creating it. The first, this winter, I took an (intentionally) online class. I didn't think it would be fair to include it in my analysis because there are fewer consquences for having a large online class (except for more grading). To easily subset it from the rest, I created the 'in_person' variable.\
@@ -34,14 +34,13 @@ The problem I ran into is that I don't know how to get R to understand that I wa
 # Class Size by Year
 ```{r by-year}
 in_person %>% 
-  group_by(year) %>% 
+  group_by(Year) %>% 
   summarise(
     n = n(),
-    `Standard Deviation` = sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Maximum = max(size)) %>%
-  rename(Year = year) %>% 
+    `Standard Deviation` = sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Maximum = max(Size)) %>%
   kable(caption = "Table 1: Class size by year summary statistics",
         digit = 2)
 ```
@@ -51,10 +50,10 @@ It is also worth noting that this data is seperated by acutal years, not acadmei
 
 ```{r by-year-graph}
 in_person %>% 
-  ggplot(aes(x = factor(0), y = size))+
+  ggplot(aes(x = factor(0), y = Size))+
    geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
-  facet_wrap("year")+
+  facet_wrap("Year")+
   theme(axis.text.x = element_blank())+
   theme(axis.ticks.x = element_blank())+
   labs(
@@ -70,13 +69,13 @@ Here's a boxplot showing much of the same thing.
 # Class Size by Semester
 ```{r by-semester}
 in_person %>% 
-  group_by(semester) %>% 
+  group_by(Semester) %>% 
   summarise(
     n = n(),
-    `Standard Deviation` = sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Max = max(size)) %>%
+    `Standard Deviation` = sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Max = max(Size)) %>%
   kable(caption = "Table 2: Class size by semester",
         digit =2)
 ```
@@ -85,7 +84,7 @@ Let's do this analysis again looking at each semester. We can see a bit more cle
 
 ```{r by semester-graph}
 in_person %>% 
-  ggplot(aes(x = semester, y = size))+
+  ggplot(aes(x = Semester, y = Size))+
   geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
   labs(
@@ -101,13 +100,13 @@ Another day, another boxplot. Keep in mind that the semesters are not in chronol
 # Class Size by Department
 ```{r by-department}
 in_person %>% 
-  group_by(department) %>% 
+  group_by(Department) %>% 
   summarise(
     n = n(),
-    `Standard Deviation`= sd(size),
-    Minimum = min(size),
-    Median = median(size),
-    Maximum = max(size)) %>%
+    `Standard Deviation`= sd(Size),
+    Minimum = min(Size),
+    Median = median(Size),
+    Maximum = max(Size)) %>%
   kable(caption = "Table 3: Class size by Department",
         digit = 2)
 ```
@@ -119,7 +118,7 @@ In the Business department, I only took BUS 201 (Business Law). this is a requir
 
 ```{r by-department-graph}
 in_person %>% 
-  ggplot(aes(x = department, y = size))+
+  ggplot(aes(x = Department, y = Size))+
   geom_boxplot()+
   geom_hline(yintercept = 26, color = "red")+
   labs(
