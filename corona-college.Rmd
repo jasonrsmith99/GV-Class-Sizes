@@ -42,7 +42,8 @@ in_person %>%
     Median = median(size),
     Maximum = max(size)) %>%
   rename(Year = year) %>% 
-  kable(caption = "Table 1: Class size by year summary statistics")
+  kable(caption = "Table 1: Class size by year summary statistics",
+        digit = 2)
 ```
 
 Based on this summary, the median class size I've had has increased and the standard deviation has decreased. You could claim that smaller class sizes are only for first year students but that would be incorrect. In fact, the largest classes I've taken occured during my first year. There are also some considerations deeper analysis will reveal.\
@@ -76,7 +77,8 @@ in_person %>%
     Minimum = min(size),
     Median = median(size),
     Max = max(size)) %>%
-  kable(caption = "Table 2: Class size by semester")
+  kable(caption = "Table 2: Class size by semester",
+        digit =2)
 ```
 
 Let's do this analysis again looking at each semester. We can see a bit more clearly that the large standard deviations are a result of me taking courses with exceptional large class sizes during my first year (fall 2018 and winter 2019). However, the increasing median size remains unexplained.
@@ -106,7 +108,8 @@ in_person %>%
     Minimum = min(size),
     Median = median(size),
     Maximum = max(size)) %>%
-  kable(caption = "Table 3: Class size by Department")
+  kable(caption = "Table 3: Class size by Department",
+        digit = 2)
 ```
 
 This is where I think we get some real insight. For reference, I am majoring in economics and statistics and at this point, I've almost completed the economics coursework. It isn't necesarily that class sizes get larger as students progress. The economics department happens to have larger classes (most of them are 40 students). The fact that I'm taking more of these courses in my second (academcic) year is probably what's increasing the median class size.\

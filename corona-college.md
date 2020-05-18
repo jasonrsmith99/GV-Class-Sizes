@@ -83,7 +83,8 @@ in_person %>%
     Median = median(size),
     Maximum = max(size)) %>%
   rename(Year = year) %>% 
-  kable(caption = "Table 1: Class size by year summary statistics")
+  kable(caption = "Table 1: Class size by year summary statistics",
+        digit = 2)
 ```
 
 <table>
@@ -156,7 +157,7 @@ Maximum
 
 <td style="text-align:right;">
 
-27.978563
+27.98
 
 </td>
 
@@ -196,7 +197,7 @@ Maximum
 
 <td style="text-align:right;">
 
-23.661384
+23.66
 
 </td>
 
@@ -236,7 +237,7 @@ Maximum
 
 <td style="text-align:right;">
 
-6.350853
+6.35
 
 </td>
 
@@ -303,7 +304,8 @@ in_person %>%
     Minimum = min(size),
     Median = median(size),
     Max = max(size)) %>%
-  kable(caption = "Table 2: Class size by semester")
+  kable(caption = "Table 2: Class size by semester",
+        digit =2)
 ```
 
 <table>
@@ -376,7 +378,7 @@ fall\_18
 
 <td style="text-align:right;">
 
-27.978563
+27.98
 
 </td>
 
@@ -416,7 +418,7 @@ fall\_19
 
 <td style="text-align:right;">
 
-5.612486
+5.61
 
 </td>
 
@@ -456,7 +458,7 @@ winter\_19
 
 <td style="text-align:right;">
 
-36.206583
+36.21
 
 </td>
 
@@ -496,7 +498,7 @@ winter\_20
 
 <td style="text-align:right;">
 
-6.350853
+6.35
 
 </td>
 
@@ -559,7 +561,8 @@ in_person %>%
     Minimum = min(size),
     Median = median(size),
     Maximum = max(size)) %>%
-  kable(caption = "Table 3: Class size by Department")
+  kable(caption = "Table 3: Class size by Department",
+        digit = 2)
 ```
 
 <table>
@@ -632,7 +635,7 @@ Biology
 
 <td style="text-align:right;">
 
-39.8036849
+39.80
 
 </td>
 
@@ -712,7 +715,7 @@ Economics
 
 <td style="text-align:right;">
 
-3.5321651
+3.53
 
 </td>
 
@@ -752,7 +755,7 @@ Honors College
 
 <td style="text-align:right;">
 
-0.0000000
+0.00
 
 </td>
 
@@ -792,7 +795,7 @@ Mathematics
 
 <td style="text-align:right;">
 
-3.0550505
+3.06
 
 </td>
 
@@ -832,7 +835,7 @@ Statistics
 
 <td style="text-align:right;">
 
-0.7071068
+0.71
 
 </td>
 
