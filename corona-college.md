@@ -921,7 +921,7 @@ So what can we take away from this?
   - Grand Valley has fairly small class sizes (although I haven’t
     compared them with other schools)
 
-  - Departments are very consistant class sizes across their courses
+  - Departments have very consistant class sizes
     
       - We see some exceptions in Biology and Business where the courses
         I’ve taken (BIO 120 and BUS 201) are required intro classes for
