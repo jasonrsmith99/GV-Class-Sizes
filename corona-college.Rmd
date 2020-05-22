@@ -19,8 +19,12 @@ past courses (among other things) in Banner. This is the story of that afternoon
 library(readxl)
 library(tidyverse)
 library(kableExtra)
-(class_sizes <- read_excel("data/class_sizes.xlsx"))
-in_person <- filter(class_sizes, In_person == 1)
+library(here)
+
+class_sizes <- read_excel(here("data","class_sizes.xlsx"))
+
+in_person <- filter(class_sizes, In_person == 1) %>% 
+  mutate(Semester = fct_relevel(Semester, "Fall_18", "Winter_19", "Fall_19", "Winter_20"))
 ```
 
 I made this dataset by copying the information I found on Banner for my past registrations into Excel. There were a few considerations I had to make while creating it. The first, this winter, I took an (intentionally) online class. I didn't think it would be fair to include it in my analysis because there are fewer consquences for having a large online class (except for more grading). To easily subset it from the rest, I created the 'in_person' variable.\
@@ -94,8 +98,6 @@ in_person %>%
     y = "Class Size",
     caption = "Red line is Grand Valley's average class size of 26")
 ```
-
-Another day, another boxplot. Keep in mind that the semesters are not in chronological order.
 
 # Class Size by Department
 ```{r by-department}

@@ -23,35 +23,12 @@ project.
 library(readxl)
 library(tidyverse)
 library(kableExtra)
-(class_sizes <- read_excel("data/class_sizes.xlsx"))
-```
+library(here)
 
-    ## # A tibble: 20 x 6
-    ##    Semester   Year Class       Department          Size In_person
-    ##    <chr>     <dbl> <chr>       <chr>              <dbl>     <dbl>
-    ##  1 Fall_18    2018 HNR 280     Honors College        25         1
-    ##  2 Fall_18    2018 US 102      University Studies    26         1
-    ##  3 Fall_18    2018 BIO 120-20  Biology               96         1
-    ##  4 Fall_18    2018 BIO 120-912 Biology               23         1
-    ##  5 Fall_18    2018 BIO 120-23  Biology               32         1
-    ##  6 Fall_18    2018 ECO 210     Economics             38         1
-    ##  7 Winter_19  2019 HNR 280     Honors College        25         1
-    ##  8 Winter_19  2019 MTH 122     Mathematics           23         1
-    ##  9 Winter_19  2019 ECO 211     Economics             39         1
-    ## 10 Winter_19  2019 BUS 201     Business             100         1
-    ## 11 Fall_19    2019 ECO 312     Economics             39         1
-    ## 12 Fall_19    2019 STA 216     Statistics            30         1
-    ## 13 Fall_19    2019 ECO 300     Economics             30         1
-    ## 14 Fall_19    2019 ECO 360     Economics             39         1
-    ## 15 Fall_19    2019 MTH 123     Mathematics           27         1
-    ## 16 Winter_20  2020 STA 321     Statistics            29         1
-    ## 17 Winter_20  2020 MTH 201     Mathematics           29         1
-    ## 18 Winter_20  2020 ECO 345     Economics             40         1
-    ## 19 Winter_20  2020 HNR 280     Honors College        21         0
-    ## 20 Winter_20  2020 ECO 355     Economics             40         1
+class_sizes <- read_excel(here("data","class_sizes.xlsx"))
 
-``` r
-in_person <- filter(class_sizes, In_person == 1)
+in_person <- filter(class_sizes, In_person == 1) %>% 
+  mutate(Semester = fct_relevel(Semester, "Fall_18", "Winter_19", "Fall_19", "Winter_20"))
 ```
 
 I made this dataset by copying the information I found on Banner for my
@@ -405,46 +382,6 @@ Fall\_18
 
 <td style="text-align:left;">
 
-Fall\_19
-
-</td>
-
-<td style="text-align:right;">
-
-5
-
-</td>
-
-<td style="text-align:right;">
-
-5.61
-
-</td>
-
-<td style="text-align:right;">
-
-27
-
-</td>
-
-<td style="text-align:right;">
-
-30.0
-
-</td>
-
-<td style="text-align:right;">
-
-39
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
 Winter\_19
 
 </td>
@@ -476,6 +413,46 @@ Winter\_19
 <td style="text-align:right;">
 
 100
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Fall\_19
+
+</td>
+
+<td style="text-align:right;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+5.61
+
+</td>
+
+<td style="text-align:right;">
+
+27
+
+</td>
+
+<td style="text-align:right;">
+
+30.0
+
+</td>
+
+<td style="text-align:right;">
+
+39
 
 </td>
 
@@ -545,9 +522,6 @@ in_person %>%
 ```
 
 ![](corona-college_files/figure-gfm/by%20semester-graph-1.png)<!-- -->
-
-Another day, another boxplot. Keep in mind that the semesters are not in
-chronological order.
 
 # Class Size by Department
 
